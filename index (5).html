@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mahmoud Mohamed — Web Developer &amp; Network Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f2f1ee;
+    --surface:#e9e8e4;
+    --ink:#0a0a0a;
+    --muted:#6b6b6b;
+    --line:#d8d6d1;
+    --accent:#1e5aff;
+    --accent-soft:rgba(30,90,255,0.08);
+    --accent-soft-2:rgba(30,90,255,0.16);
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'Inter', -apple-system, sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ text-decoration:none; color:inherit; }
+  ul{ list-style:none; }
+  img{ max-width:100%; display:block; }
+  .container{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  .eyebrow{
+    font-family:var(--mono);
+    color:var(--accent);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
+  h1,h2,h3,h4{ font-family:var(--mono); letter-spacing:-0.01em; }
+  .section-title{
+    font-size:clamp(28px,4vw,42px);
+    font-weight:700;
+    margin-bottom:48px;
+    color:var(--ink);
+  }
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(242,241,238,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease;
+  }
+  nav.scrolled{ border-bottom-color:var(--line); }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:18px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:16px;
+    display:flex; align-items:center; gap:2px;
+  }
+  .logo .blink{ color:var(--accent); animation:blink 1.2s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .nav-links{ display:flex; gap:36px; font-size:14px; font-weight:500; }
+  .nav-links a{ position:relative; color:var(--muted); transition:color .2s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-6px; height:1px; width:0;
+    background:var(--accent); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .btn{
+    font-family:var(--sans); font-weight:600; font-size:14px;
+    padding:10px 22px; border-radius:2px; border:1px solid var(--ink);
+    display:inline-block; transition:all .2s ease;
+  }
+  .btn-solid{ background:var(--ink); color:#fff; }
+  .btn-solid:hover{ background:var(--accent); border-color:var(--accent); }
+  .btn-outline{ background:transparent; color:var(--ink); }
+  .btn-outline:hover{ background:var(--ink); color:#fff; }
+  .nav-cta{ display:none; }
+  .menu-btn{ display:block; background:none; border:none; font-size:22px; cursor:pointer; }
+  @media(min-width:860px){
+    .menu-btn{ display:none; }
+    .nav-cta{ display:inline-block; }
+  }
+  .mobile-menu{
+    display:none; flex-direction:column; gap:22px; padding:28px 24px 32px;
+    border-top:1px solid var(--line); background:var(--bg);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{ font-weight:600; font-size:15px; }
+
+  /* HERO */
+  .hero{
+    padding-top:160px; padding-bottom:100px; border-bottom:1px solid var(--line);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-position:center;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, #000 40%, transparent 90%);
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, #000 40%, transparent 90%);
+  }
+  .hero-inner{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  .hero-grid{ display:grid; grid-template-columns:1fr; gap:32px; align-items:center; }
+  @media(min-width:900px){ .hero-grid{ grid-template-columns:1.15fr 0.85fr; } }
+  .hero-visual{ display:flex; justify-content:center; }
+  .net-diagram{ width:100%; max-width:320px; height:auto; }
+  .status-line{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:13px; color:var(--muted);
+    margin-bottom:22px;
+  }
+  .status-line .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--accent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+  .hero h1{
+    font-size:clamp(38px,6vw,64px); font-weight:700; line-height:1.05;
+    margin-bottom:18px;
+  }
+  .hero .role-line{
+    font-family:var(--mono); font-size:clamp(16px,2.4vw,20px); font-weight:600;
+    color:var(--accent); min-height:28px; margin-bottom:20px;
+  }
+  .hero .role-line .cursor{
+    border-right:2px solid var(--accent); animation:blink 0.9s step-end infinite;
+  }
+  .hero p.tagline{
+    max-width:560px; color:var(--muted); font-size:17px; margin-bottom:36px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:64px; }
+  .stats-row{ display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:32px; }
+  .stat{ flex:1; min-width:120px; padding-right:24px; }
+  .stat .num{ font-family:var(--mono); font-size:32px; font-weight:700; color:var(--ink); }
+  .stat .label{ font-size:13px; color:var(--muted); margin-top:2px; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:48px; }
+  @media(min-width:800px){ .about-grid{ grid-template-columns:1.1fr 0.9fr; } }
+  .about-text p{ color:var(--muted); font-size:16px; margin-bottom:16px; max-width:520px; }
+  .about-text strong{ color:var(--ink); font-weight:700; }
+  .info-list{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .info-row{
+    background:var(--bg); padding:16px 20px; display:flex; justify-content:space-between; align-items:center;
+  }
+  .info-row .k{ font-family:var(--mono); font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .info-row .v{ font-weight:600; font-size:14px; }
+
+  /* SKILLS */
+  .skills-grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:48px; }
+  @media(min-width:700px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
+  .skill-card{ border:1px solid var(--line); padding:20px 22px; }
+  .skill-top{ display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:12px; }
+  .skill-top .pct{ font-family:var(--mono); color:var(--accent); }
+  .track{ height:4px; background:var(--surface); }
+  .fill{ height:4px; background:var(--accent); width:0; transition:width 1.4s ease; }
+  .chip-row{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media(min-width:700px){ .chip-row{ grid-template-columns:repeat(4,1fr); } }
+  .chip{ border:1px solid var(--line); padding:20px 16px; text-align:center; }
+  .chip .ic{ font-size:22px; margin-bottom:10px; }
+  .chip .t{ font-weight:700; font-size:13.5px; margin-bottom:4px; }
+  .chip .d{ font-size:12px; color:var(--muted); }
+
+  /* CERTIFICATIONS - traceroute signature */
+  .cert-path{ position:relative; padding-left:56px; }
+  .cert-path::before{
+    content:""; position:absolute; left:23px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .hop{ position:relative; padding-bottom:36px; }
+  .hop:last-child{ padding-bottom:0; }
+  .hop-num{
+    position:absolute; left:-56px; top:0; width:47px; height:47px;
+    border:1px solid var(--line); background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:13px; color:var(--muted);
+    transition:border-color .25s ease, color .25s ease, background .25s ease;
+  }
+  .hop:hover .hop-num{ border-color:var(--accent); color:var(--accent); background:var(--accent-soft); }
+  .hop-card{
+    border:1px solid var(--line); padding:20px 24px;
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:center;
+    transition:border-color .25s ease;
+  }
+  .hop:hover .hop-card{ border-color:var(--accent); }
+  .hop-main{ flex:1; min-width:220px; }
+  .hop-title{ font-weight:700; font-size:15.5px; margin-bottom:6px; }
+  .hop-meta{ font-size:13px; color:var(--muted); display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .tag{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.04em;
+    padding:3px 8px; border:1px solid var(--line); color:var(--muted);
+  }
+  .verify-link{
+    font-family:var(--mono); font-size:13px; font-weight:600; color:var(--accent);
+    white-space:nowrap; border-bottom:1px solid transparent;
+  }
+  .verify-link:hover{ border-bottom-color:var(--accent); }
+
+  /* PROJECTS */
+  .proj-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+  @media(min-width:750px){ .proj-grid{ grid-template-columns:1fr 1fr; } }
+  .proj-card{ border:1px solid var(--line); padding:0; overflow:hidden; }
+  .proj-thumb{
+    height:150px; background:var(--surface); display:flex; align-items:center; justify-content:center;
+    font-size:46px; border-bottom:1px solid var(--line);
+  }
+  .proj-body{ padding:24px; }
+  .proj-body h4{ font-size:18px; margin-bottom:10px; }
+  .proj-body p{ color:var(--muted); font-size:14px; margin-bottom:16px; }
+  .tech-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .tech-chip{ font-family:var(--mono); font-size:11px; border:1px solid var(--line); padding:3px 9px; color:var(--muted); }
+  .proj-card.soon{ display:flex; align-items:center; justify-content:center; border-style:dashed; min-height:260px; }
+  .proj-card.soon .inner{ text-align:center; color:var(--muted); }
+  .proj-card.soon .ic{ font-size:34px; margin-bottom:12px; }
+
+  /* CONTACT */
+  .contact-grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:40px; }
+  @media(min-width:700px){ .contact-grid{ grid-template-columns:repeat(3,1fr); } }
+  .contact-card{ border:1px solid var(--line); padding:26px 20px; text-align:center; transition:border-color .2s ease; }
+  .contact-card:hover{ border-color:var(--accent); }
+  .contact-card .ic{ font-size:24px; margin-bottom:12px; }
+  .contact-card .lbl{ font-weight:700; font-size:14px; margin-bottom:4px; }
+  .contact-card .val{ font-size:13px; color:var(--muted); }
+  .contact-center{ text-align:center; }
+  .contact-center p{ color:var(--muted); max-width:480px; margin:0 auto 32px; }
+
+  footer{ padding:40px 0; text-align:center; }
+  footer .logo{ justify-content:center; margin-bottom:8px; }
+  footer .copy{ font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="logo">mahmoud.dev<span class="blink">_</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="https://wa.me/201031506624" target="_blank" rel="noreferrer" class="btn btn-solid nav-cta">Hire Me</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="status-line"><span class="dot"></span> Available for new projects</div>
+        <h1>Mahmoud Mohamed</h1>
+        <div class="role-line"><span id="roleText"></span><span class="cursor">&nbsp;</span></div>
+        <p class="tagline">Web developer building modern interfaces, backed by a CCNA-track networking and security foundation. Nine certifications deep, one live project shipped, always tracing the next route.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-solid">View My Work</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><div class="num">9</div><div class="label">Certifications</div></div>
+          <div class="stat"><div class="num">5</div><div class="label">CCNA-track courses</div></div>
+          <div class="stat"><div class="num">1</div><div class="label">Live project</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg class="net-diagram" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path style="stroke:var(--line);stroke-width:1.5;fill:none" d="M190 190 L70 90"/>
+          <path style="stroke:var(--line);stroke-width:1.5;fill:none" d="M190 190 L320 110"/>
+          <path style="stroke:var(--line);stroke-width:1.5;fill:none" d="M190 190 L190 330"/>
+          <path style="stroke:var(--line);stroke-width:1.5;fill:none" d="M190 190 L330 300"/>
+          <rect x="170" y="170" width="40" height="40" rx="4" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/>
+          <circle cx="70" cy="90" r="9" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/>
+          <circle cx="320" cy="110" r="9" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/>
+          <circle cx="190" cy="330" r="9" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/>
+          <circle cx="330" cy="300" r="9" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.5"/>
+          <circle r="4" style="fill:var(--accent)">
+            <animateMotion dur="2.6s" repeatCount="indefinite" path="M190 190 L70 90"/>
+          </circle>
+          <circle r="4" style="fill:var(--accent)">
+            <animateMotion dur="3.1s" repeatCount="indefinite" begin="0.4s" path="M190 190 L320 110"/>
+          </circle>
+          <circle r="4" style="fill:var(--accent)">
+            <animateMotion dur="2.3s" repeatCount="indefinite" begin="0.8s" path="M190 190 L190 330"/>
+          </circle>
+          <circle r="4" style="fill:var(--accent)">
+            <animateMotion dur="2.9s" repeatCount="indefinite" begin="1.2s" path="M190 190 L330 300"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <span class="eyebrow reveal">about</span>
+    <h2 class="section-title reveal">Who Am I?</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>web developer</strong> based in Egypt 🇪🇬, currently building out a parallel track in <strong>networking and cybersecurity</strong> through Cisco's CCNA curriculum.</p>
+        <p>My background spans front-end development with React, foundational Linux security scripting, and network architecture — a mix that lets me think about the products I build from both the interface and the infrastructure side.</p>
+        <a href="https://wa.me/201031506624" target="_blank" rel="noreferrer" class="btn btn-solid">Chat on WhatsApp</a>
+      </div>
+      <div class="info-list reveal">
+        <div class="info-row"><span class="k">Name</span><span class="v">Mahmoud Mohamed</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Egypt 🇪🇬</span></div>
+        <div class="info-row"><span class="k">Focus</span><span class="v">Web Dev · Networking</span></div>
+        <div class="info-row"><span class="k">Certifications</span><span class="v">9 completed</span></div>
+        <div class="info-row"><span class="k">Phone</span><span class="v">01031506624</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <span class="eyebrow reveal">skills</span>
+    <h2 class="section-title reveal">What I Do</h2>
+    <div class="skills-grid" id="skillsGrid">
+      <div class="skill-card reveal">
+        <div class="skill-top"><span>React &amp; Front-End</span><span class="pct">85%</span></div>
+        <div class="track"><div class="fill" data-level="85"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-top"><span>HTML &amp; CSS</span><span class="pct">95%</span></div>
+        <div class="track"><div class="fill" data-level="95"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-top"><span>Networking (CCNA)</span><span class="pct">80%</span></div>
+        <div class="track"><div class="fill" data-level="80"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-top"><span>Linux &amp; Security Scripting</span><span class="pct">75%</span></div>
+        <div class="track"><div class="fill" data-level="75"></div></div>
+      </div>
+    </div>
+    <div class="chip-row">
+      <div class="chip reveal"><div class="ic">🌐</div><div class="t">Web Development</div><div class="d">Modern &amp; responsive</div></div>
+      <div class="chip reveal"><div class="ic">🔀</div><div class="t">Networking</div><div class="d">CCNA foundations→expert</div></div>
+      <div class="chip reveal"><div class="ic">🔒</div><div class="t">Security</div><div class="d">Linux &amp; OS security</div></div>
+      <div class="chip reveal"><div class="ic">🤖</div><div class="t">Automation</div><div class="d">ROS 2 &amp; cloud basics</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="container">
+    <span class="eyebrow reveal">certifications</span>
+    <h2 class="section-title reveal">Learning Path — Traced Hop by Hop</h2>
+    <div class="cert-path">
+
+      <div class="hop reveal">
+        <div class="hop-num">01</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">Introduction to Computers and Operating Systems and Security</div>
+            <div class="hop-meta"><span>Microsoft</span>·<span>Jun 17, 2026</span><span class="tag">Security</span></div>
+          </div>
+          <a href="https://coursera.org/verify/FRO5XRJO9BBR" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">02</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">Network Architecture</div>
+            <div class="hop-meta"><span>Google</span>·<span>Jun 17, 2026</span><span class="tag">Networking</span></div>
+          </div>
+          <a href="https://coursera.org/verify/Y6XCQ4QNO2ZE" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">03</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">Linux Security Scripting and Certification Preparation</div>
+            <div class="hop-meta"><span>Wiley</span>·<span>Jun 18, 2026</span><span class="tag">Security</span></div>
+          </div>
+          <a href="https://coursera.org/verify/PBN7HIF2NU7A" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">04</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">Create a Website with MailChimp</div>
+            <div class="hop-meta"><span>Coursera Project</span>·<span>Jun 18, 2026</span><span class="tag">Web Dev</span></div>
+          </div>
+          <a href="https://coursera.org/verify/O7E46NK497BP" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">05</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">CCNA Foundations — Networking Basics and Cisco IOS Essentials</div>
+            <div class="hop-meta"><span>Packt</span>·<span>Jun 21, 2026</span><span class="tag">Networking</span></div>
+          </div>
+          <a href="https://coursera.org/verify/UHJ1DMPSPZO4" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">06</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">CCNA Intermediate — Switching, VLANs &amp; Routing</div>
+            <div class="hop-meta"><span>Packt</span>·<span>Jun 22, 2026</span><span class="tag">Networking</span></div>
+          </div>
+          <a href="https://coursera.org/verify/L97I6QSGP4I6" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">07</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">CCNA Advanced — WAN, Security, and Network Services</div>
+            <div class="hop-meta"><span>Packt</span>·<span>Jul 2, 2026</span><span class="tag">Networking</span></div>
+          </div>
+          <a href="https://coursera.org/verify/S83MAW13HTWF" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">08</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">CCNA Expert — Network Automation, Cloud, and Emerging Technologies</div>
+            <div class="hop-meta"><span>Packt</span>·<span>Jul 2, 2026</span><span class="tag">Networking</span></div>
+          </div>
+          <a href="https://coursera.org/verify/S9NM5WQVWAZM" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+      <div class="hop reveal">
+        <div class="hop-num">09</div>
+        <div class="hop-card">
+          <div class="hop-main">
+            <div class="hop-title">ROS 2 Foundations — Architecture, Programming &amp; Core Concepts</div>
+            <div class="hop-meta"><span>Packt</span>·<span>Jul 2, 2026</span><span class="tag">Robotics</span></div>
+          </div>
+          <a href="https://coursera.org/verify/3BJZ088ZAOST" target="_blank" rel="noreferrer" class="verify-link">Verify →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <span class="eyebrow reveal">projects</span>
+    <h2 class="section-title reveal">My Work</h2>
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-thumb">👗</div>
+        <div class="proj-body">
+          <h4>NOUR Store</h4>
+          <p>متجر ملابس حريمي احترافي مع نظام طلبات، لوحة أدمن، وقاعدة بيانات Supabase</p>
+          <div class="tech-row">
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Supabase</span>
+            <span class="tech-chip">Tailwind CSS</span>
+          </div>
+          <a href="https://nour-store-eg.netlify.app" target="_blank" rel="noreferrer" class="btn btn-solid">View Live →</a>
+        </div>
+      </div>
+      <div class="proj-card soon reveal">
+        <div class="inner">
+          <div class="ic">🚧</div>
+          <p style="font-weight:700;color:var(--ink);">More Coming Soon</p>
+          <p style="margin-top:6px;">Working on new projects</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container contact-center">
+    <span class="eyebrow reveal">contact</span>
+    <h2 class="section-title reveal" style="margin-bottom:12px;">Let's Work Together</h2>
+    <p class="reveal">هل عندك مشروع أو فكرة؟ تواصل معي وهنعملها مع بعض 🚀</p>
+    <div class="contact-grid">
+      <a href="https://wa.me/201031506624" target="_blank" rel="noreferrer" class="contact-card reveal">
+        <div class="ic">📱</div><div class="lbl">WhatsApp</div><div class="val">01031506624</div>
+      </a>
+      <a href="mailto:mahmoudmahmodmahmoud122@gmail.com" class="contact-card reveal">
+        <div class="ic">📧</div><div class="lbl">Email</div><div class="val">Send a message</div>
+      </a>
+      <div class="contact-card reveal">
+        <div class="ic">📍</div><div class="lbl">Location</div><div class="val">Egypt 🇪🇬</div>
+      </div>
+    </div>
+    <a href="https://wa.me/201031506624" target="_blank" rel="noreferrer" class="btn btn-solid reveal" style="padding:14px 40px;">تواصل معي الآن</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">mahmoud.dev<span class="blink">_</span></div>
+  <p class="copy">© 2026 All rights reserved</p>
+</footer>
+
+<script>
+  // nav scroll state
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    menuBtn.textContent = mobileMenu.classList.contains('open') ? '✕' : '☰';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰';
+  }));
+
+  // typing role effect
+  const roles = ["Web Developer", "Network Engineer (CCNA)", "Cybersecurity Enthusiast"];
+  const roleTextEl = document.getElementById('roleText');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    document.querySelectorAll('svg.net-diagram').forEach(svg => {
+      if (svg.pauseAnimations) svg.pauseAnimations();
+    });
+  }
+  let ri = 0, ci = 0, deleting = false;
+
+  function typeLoop(){
+    if (reduceMotion) { roleTextEl.textContent = roles[0]; return; }
+    const current = roles[ri % roles.length];
+    if (!deleting) {
+      ci++;
+      roleTextEl.textContent = current.slice(0, ci);
+      if (ci === current.length) { deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      ci--;
+      roleTextEl.textContent = current.slice(0, ci);
+      if (ci === 0) { deleting = false; ri++; }
+    }
+    setTimeout(typeLoop, deleting ? 40 : 70);
+  }
+  typeLoop();
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // skill bar fill on view
+  const fills = document.querySelectorAll('.fill');
+  const fio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.level + '%';
+        fio.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => fio.observe(f));
+</script>
+
+</body>
+</html>
